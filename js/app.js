@@ -1,10 +1,19 @@
-import { channelsData } from "../data/data.js";
+import { getChannels , resetChannels } from "./api.js";
 import { renderChannels } from "./ui.js";
 import { search } from "./search.js";
 
-renderChannels(channelsData);
-search(channelsData) 
+async function init() {
+
+    const channelsData = await getChannels()
+
+    await resetChannels(channelsData)
+
+    console.log(channelsData);
+    renderChannels(channelsData);
+    search(channelsData)
+
+}
 
 
+init();
 
- 
