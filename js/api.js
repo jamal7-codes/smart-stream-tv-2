@@ -50,6 +50,7 @@ export async function createChannel(channel) {
 
 // PUT: Create a function to update an existing channel.
 export async function updateChannel(id, changes) {
+     
     // Build the URL using the channel ID.
     const response = await fetch(`${API_URL}/${id}`, {
         // Define the HTTP method.
