@@ -14,7 +14,7 @@ export function search(channelsData) {
 
     const searchTermLower = searchTerm.toLowerCase();
     return channelsData.filter(channel => {
- 
+
       return channel.name.toLowerCase().includes(searchTermLower);
 
     });
@@ -26,7 +26,12 @@ export function search(channelsData) {
       const cate = e.target.dataset.category;
       if (cate === "All") {
         renderChannels(channelsData);
-      } else {
+
+      } else if (cate === "favorite") {
+        const filterfav = channelsData.filter(channel => channel.isFavorite === true)
+        renderChannels(filterfav)
+      }
+      else {
         const filtred = channelsData.filter(channel => channel.category === cate)
 
         renderChannels(filtred)
