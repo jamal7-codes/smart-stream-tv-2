@@ -56,13 +56,24 @@ export function renderChannels(channels) {
         // Display favorite status
         favButton.textContent = channel.isFavorite ? "★" : "☆";
 
+        // create delete button
+        const deleteButton = document.createElement("button")
+        deleteButton.type = "button";
+        deleteButton.className = "delete bg-red-500 w-16 h-8 rounded-lg hover:bg-red-400 flex-shrink-0 cursor-pointer";
+        deleteButton.dataset.action = "delete"
+        deleteButton.setAttribute("aria-label", "Delete channel")
+        deleteButton.textContent = "Delete";
+
+
+
         // Append elements to li
         listItem.appendChild(channelLogo);
         listItem.appendChild(channelText);
         listItem.appendChild(favButton);
-
-        // Append li to ul
+        listItem.appendChild(deleteButton)
         listElement.appendChild(listItem);
+
+         
 
         // Channel selection
         listItem.addEventListener("click", (event) => {
