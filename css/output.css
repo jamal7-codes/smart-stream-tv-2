@@ -8,8 +8,10 @@
       "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-red-100: oklch(93.6% 0.032 17.717);
     --color-red-400: oklch(70.4% 0.191 22.216);
     --color-red-500: oklch(63.7% 0.237 25.331);
+    --color-yellow-200: oklch(94.5% 0.129 101.54);
     --color-purple-600: oklch(55.8% 0.288 302.321);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-black: #000;
@@ -210,8 +212,17 @@
   .flex {
     display: flex;
   }
+  .hidden {
+    display: none;
+  }
+  .table {
+    display: table;
+  }
   .aspect-video {
     aspect-ratio: var(--aspect-video);
+  }
+  .h-1 {
+    height: var(--spacing);
   }
   .h-6 {
     height: calc(var(--spacing) * 6);
@@ -222,11 +233,17 @@
   .h-12 {
     height: calc(var(--spacing) * 12);
   }
+  .h-16 {
+    height: calc(var(--spacing) * 16);
+  }
   .h-full {
     height: 100%;
   }
   .min-h-screen {
     min-height: 100vh;
+  }
+  .w-2 {
+    width: calc(var(--spacing) * 2);
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
@@ -237,6 +254,18 @@
   .w-16 {
     width: calc(var(--spacing) * 16);
   }
+  .w-24 {
+    width: calc(var(--spacing) * 24);
+  }
+  .w-28 {
+    width: calc(var(--spacing) * 28);
+  }
+  .w-30 {
+    width: calc(var(--spacing) * 30);
+  }
+  .w-32 {
+    width: calc(var(--spacing) * 32);
+  }
   .w-full {
     width: 100%;
   }
@@ -246,11 +275,20 @@
   .min-w-0 {
     min-width: 0px;
   }
+  .flex-shrink {
+    flex-shrink: 1;
+  }
   .flex-shrink-0 {
     flex-shrink: 0;
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .cursor-pointer {
     cursor: pointer;
+  }
+  .resize {
+    resize: both;
   }
   .scrollbar-none {
     scrollbar-width: none;
@@ -272,6 +310,9 @@
   }
   .overflow-y-auto {
     overflow-y: auto;
+  }
+  .rounded {
+    border-radius: 0.25rem;
   }
   .rounded-full {
     border-radius: calc(infinity * 1px);
@@ -313,6 +354,9 @@
   }
   .bg-purple-600 {
     background-color: var(--color-purple-600);
+  }
+  .bg-red-400 {
+    background-color: var(--color-red-400);
   }
   .bg-red-500 {
     background-color: var(--color-red-500);
@@ -366,6 +410,9 @@
   .text-\[\#F8FAFC\] {
     color: #F8FAFC;
   }
+  .text-red-500 {
+    color: var(--color-red-500);
+  }
   .text-white {
     color: var(--color-white);
   }
@@ -375,8 +422,18 @@
       color: color-mix(in oklab, var(--color-white) 70%, transparent);
     }
   }
+  .text-yellow-200 {
+    color: var(--color-yellow-200);
+  }
+  .underline {
+    text-decoration-line: underline;
+  }
   .placeholder-gray-400::placeholder {
     color: var(--color-gray-400);
+  }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
   }
   .filter {
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
@@ -389,6 +446,9 @@
   @media (hover: hover) {
     .hover\:bg-\[\#7C5CFC\]:hover {
       background-color: #7C5CFC;
+    }
+    .hover\:bg-red-100:hover {
+      background-color: var(--color-red-100);
     }
     .hover\:bg-red-400:hover {
       background-color: var(--color-red-400);
@@ -439,6 +499,11 @@
 @property --tw-font-weight {
   syntax: "*";
   inherits: false;
+}
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
 }
 @property --tw-blur {
   syntax: "*";
@@ -563,6 +628,7 @@
     *, ::before, ::after, ::backdrop {
       --tw-border-style: solid;
       --tw-font-weight: initial;
+      --tw-outline-style: solid;
       --tw-blur: initial;
       --tw-brightness: initial;
       --tw-contrast: initial;

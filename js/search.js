@@ -8,6 +8,8 @@ export function search(channelsData) {
 
   const categoryBtn = document.querySelectorAll(".category-btn")
 
+
+
   function filtredChannels(channelsData, searchTerm) {
     if (!searchTerm) return channelsData;
 
@@ -25,17 +27,29 @@ export function search(channelsData) {
     button.addEventListener("click", (e) => {
       const cate = e.target.dataset.category;
       if (cate === "All") {
-        renderChannels(channelsData);
+     const filtredChannels = channelsData.filter(channel => !channel.isBlacklisted)
+        renderChannels(filtredChannels);
 
       } else if (cate === "favorite") {
-        const filterfav = channelsData.filter(channel => channel.isFavorite === true)
-        renderChannels(filterfav)
+
+        const filterfav = channelsData.filter(
+          channel => channel.isFavorite === true && !channel.isBlacklisted
+        );
+
+        renderChannels(filterfav);
       }
-      else {
-        const filtred = channelsData.filter(channel => channel.category === cate)
+      
+      else if (cate === "blacklist") {
+        const filterblacklist = channelsData.filter(channel => channel.isBlacklisted === true)
+        renderChannels(filterblacklist, "blacklist")
+      } else {
+
+        const filtred = channelsData.filter(channel => channel.category === cate && !channel.isBlacklisted)
 
         renderChannels(filtred)
       }
+
+
     })
   });
 

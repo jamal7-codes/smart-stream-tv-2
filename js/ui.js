@@ -1,5 +1,5 @@
 
-export function renderChannels(channels) {
+export function renderChannels(channels, view = "main") {
 
     const preview_video = document.getElementById("preview-video");
     const previewTitle = document.getElementById("preview-title");
@@ -10,7 +10,7 @@ export function renderChannels(channels) {
     listcontainer.innerHTML = "";
 
     //check if there are no channels
-    if(channels.length === 0) {
+    if (channels.length === 0) {
         listcontainer.textContent = "No channels found."
         listcontainer.classList.add("text-white/70");
         return;
@@ -46,34 +46,70 @@ export function renderChannels(channels) {
 
         channelText.textContent = `${channel.channelNumber} - ${channel.name}`;
 
-        // Create favorite button
-        const favButton = document.createElement("button");
 
-        favButton.type = "button";
-        favButton.className = "favButton w-6 h-6 ml-auto flex-shrink-0 cursor-pointer";
-        favButton.dataset.action = "favorite";
 
-        // Display favorite status
-        favButton.textContent = channel.isFavorite ? "★" : "☆";
 
-        // create delete button
-        const deleteButton = document.createElement("button")
-        deleteButton.type = "button";
-        deleteButton.className = "delete bg-red-500 w-16 h-8 rounded-lg hover:bg-red-400 flex-shrink-0 cursor-pointer";
-        deleteButton.dataset.action = "delete"
-        deleteButton.setAttribute("aria-label", "Delete channel")
-        deleteButton.textContent = "Delete";
+        if (view === "blacklist") {
+
+            //create restore button
+            const restorButton = document.createElement("button");
+            restorButton.type = "button";
+            restorButton.className = "bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg";
+            restorButton.textContent = "Restore"
+            restorButton.dataset.action = "restore"
+
+            // create delete button
+            const deleteButton = document.createElement("button")
+            deleteButton.type = "button";
+            deleteButton.className = "delete bg-red-500 w-16 h-8 rounded-lg hover:bg-red-100 flex-shrink-0 cursor-pointer";
+            deleteButton.dataset.action = "delete"
+            deleteButton.setAttribute("aria-label", "Delete channel")
+            deleteButton.textContent = "Delete";
+
+            listItem.appendChild(deleteButton);
+            listItem.appendChild(restorButton)
+
+        } else {
+            // Create favorite button
+            const favButton = document.createElement("button");
+
+            favButton.type = "button";
+            favButton.className = "favButton w-6 h-6 ml-auto flex-shrink-0 cursor-pointer";
+            favButton.dataset.action = "favorite";
+
+            // Display favorite status
+            favButton.textContent = channel.isFavorite ? "★" : "☆";
+
+            // create blacklist button 
+            const blacklistButton = document.createElement("button")
+            blacklistButton.type = "button";
+            blacklistButton.className = "blacklist bg-red-500 hover:bg-red-100 w-24 rounded-lg h-8 flex-shrink-0 cursor-pointer"
+            blacklistButton.dataset.action = "blacklist"
+            blacklistButton.textContent = "🚫 blacklist"
+
+
+            listItem.appendChild(blacklistButton)
+            listItem.appendChild(favButton);
+
+        }
+
+
+        //create restore button
+
+
+
+
 
 
 
         // Append elements to li
         listItem.appendChild(channelLogo);
         listItem.appendChild(channelText);
-        listItem.appendChild(favButton);
-        listItem.appendChild(deleteButton)
+
         listElement.appendChild(listItem);
 
-         
+
+
 
         // Channel selection
         listItem.addEventListener("click", (event) => {

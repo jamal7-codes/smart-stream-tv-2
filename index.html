@@ -32,16 +32,24 @@
         <!-- aside -->
         <aside class="bg-[#151D33] flex flex-col fixed w-full h-full md:w-1/3 rounded-xl p-3 min-w-0">
 
+
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button
+                    class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-white px-4 py-2 rounded-lg cursor-pointer transition "
+                    data-category="All">☰ All</button>
+
+                    <button
+                    class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-yellow-200 px-4 py-2 rounded-lg cursor-pointer transition "
+                    data-category="favorite">⭐ My Favorites</button>
+
+                    <button
+                    class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-red-500 px-4 py-2 rounded-lg cursor-pointer transition "
+                    data-category="blacklist">🚫 Blacklisted</button>
+            </div>
             <!-- category -->
             <div class=" flex flex-wrap gap-3 mb-6">
 
-                <button
-                    class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-white px-4 py-2 rounded-lg cursor-pointer transition "
-                    data-category="All">All</button>
-
-                    <button
-                    class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-white px-4 py-2 rounded-lg cursor-pointer transition "
-                    data-category="favorite">My Favorites</button>
+                
 
                 <button
                     class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-white px-4 py-2 rounded-lg cursor-pointer transition "
@@ -64,6 +72,7 @@
 
             <div id="channel-list" class="w-full h-full overflow-y-auto scrollbar-none  mt-4 md:overflow-y-auto">
 
+            
                 <p id="message"></p>
 
 
