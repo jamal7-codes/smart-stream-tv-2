@@ -19,7 +19,7 @@ export function renderChannels(channels, view = "main") {
     // Create the list
     const listElement = document.createElement("ul");
 
-    listElement.className = "flex gap-3 w-max md:w-full md:flex-col";
+    listElement.className = "flex gap-3 w-full md:flex-col";
 
     listcontainer.appendChild(listElement);
 
@@ -29,7 +29,7 @@ export function renderChannels(channels, view = "main") {
         // Create li
         const listItem = document.createElement("li");
 
-        listItem.className = "group bg-[#202B45] hover:bg-[#7C5CFC] text-white p-4 rounded-lg cursor-pointer transition flex-shrink-0 flex items-center gap-3";
+        listItem.className = "group bg-[#202B45] hover:bg-[#7C5CFC] text-white p-4 rounded-lg cursor-pointer transition   flex items-center gap-3 w-full";
 
         // Store channel ID
         listItem.dataset.id = channel.id;

@@ -9,7 +9,7 @@
     <link href="./css/output.css" rel="stylesheet">
 </head>
 
-<body class="bg-[#0B1020] text-[#F8FAFC] min-h-screen">
+<body class="w-full h-full bg-[#0B1020] text-[#F8FAFC] min-h-screen">
 
     <!-- header -->
     <header class="bg-[#151D33] border-b border-[#293550]">
@@ -38,18 +38,18 @@
                     class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-white px-4 py-2 rounded-lg cursor-pointer transition "
                     data-category="All">☰ All</button>
 
-                    <button
+                <button
                     class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-yellow-200 px-4 py-2 rounded-lg cursor-pointer transition "
                     data-category="favorite">⭐ My Favorites</button>
 
-                    <button
+                <button
                     class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-red-500 px-4 py-2 rounded-lg cursor-pointer transition "
                     data-category="blacklist">🚫 Blacklisted</button>
             </div>
             <!-- category -->
             <div class=" flex flex-wrap gap-3 mb-6">
 
-                
+
 
                 <button
                     class="category-btn bg-[#202B45] hover:bg-[#7C5CFC] text-white px-4 py-2 rounded-lg cursor-pointer transition "
@@ -72,8 +72,9 @@
 
             <div id="channel-list" class="w-full h-full overflow-y-auto scrollbar-none  mt-4 md:overflow-y-auto">
 
-            
-                <p id="message"></p>
+            <p id="message"></p>
+
+
 
 
 
@@ -87,7 +88,7 @@
 
                 <video autoplay src="https://media.w3.org/2010/05/sintel/trailer.mp4" id="preview-video"
                     class="w-full aspect-video autoplay object-cover rounded-xl bg-black" controls playsinline
-                    preload="metadata" aria-label="Selected channel video" >
+                    preload="metadata" aria-label="Selected channel video">
                     Your browser does not support HTML video.
                 </video>
                 <!-- <img id="preview-image" class="w-full aspect-video object-cover rounded-xl"

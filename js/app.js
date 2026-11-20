@@ -3,7 +3,40 @@ import { renderChannels } from "./ui.js";
 import { search } from "./search.js";
 
 
+export function showToast(message, type = "success") {
+    let toast = document.getElementById("toast-notification");
 
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "toast-notification";
+
+        // Position and appearance
+        toast.style.position = "fixed";
+        toast.style.bottom = "20px";
+        toast.style.right = "20px";
+        toast.style.zIndex = "999999";
+        toast.style.padding = "12px 20px";
+        toast.style.borderRadius = "10px";
+        toast.style.color = "white";
+        toast.style.fontWeight = "bold";
+        toast.style.transition = "opacity 0.3s ease";
+
+        document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.style.backgroundColor =
+        type === "success" ? "#16a34a" : "#dc2626";
+
+    toast.style.opacity = "1";
+
+    clearTimeout(toast.hideTimeout);
+
+    toast.hideTimeout = setTimeout(() => {
+        toast.style.opacity = "0";
+    }, 4000);
+}
+ 
 const message = document.querySelector("#message")
 //create a globsal array to store channels
 let channels = [];
@@ -26,7 +59,7 @@ async function init() {
         search(channels)
 
         //clear the message
-        message.textContent = "";
+        // message.textContent = "";
 
     } catch (error) {
         //display error in the console
@@ -34,7 +67,7 @@ async function init() {
 
         //error mesage
         message.textContent = "Impossible de changer les channels"
-    }
+     }
 }
 
 init();
@@ -82,11 +115,13 @@ listcontainer.addEventListener("click", async (event) => {
                 "blacklist"
             );;
 
-            message.textContent = "Channel deleted successfully!";
+            // message.textContent = "Channel deleted successfully!";
+            showToast("Channel deleted successfully!");
 
         } catch (error) {
             console.error(error);
-            message.textContent = "Failed to delete channel.";
+            // message.textContent = "Failed to delete channel.";
+            showToast("Failed to delete channel.", "error")
         }
 
         return;
@@ -104,11 +139,13 @@ listcontainer.addEventListener("click", async (event) => {
 
             renderChannels(channels);
 
-            message.textContent = "Favorite updated successfully!";
+            // message.textContent = "Favorite updated successfully!";
+            showToast("Favorite updated successfully!");
 
         } catch (error) {
             console.error(error);
-            message.textContent = "Failed to update favorite.";
+            // message.textContent = "Failed to update favorite.";
+            showToast("Failed to update favorite.", "error")
         }
         return;
     }
@@ -126,11 +163,14 @@ listcontainer.addEventListener("click", async (event) => {
             // Hide blacklisted channels
             renderChannels(channels.filter((item) => !item.isBlacklisted));
 
-            message.textContent = "Channel blacklisted successfully!";
+            // message.textContent = "Channel blacklisted successfully!";
+            showToast("Channel blacklisted successfully!", "error")
 
         } catch (error) {
             console.error(error);
-            message.textContent = "Failed to blacklist channel.";
+            // message.textContent = "Failed to blacklist channel.";
+          showToast("Failed to blacklist channel." , "error")
+
         }
 
         return;
@@ -150,11 +190,12 @@ listcontainer.addEventListener("click", async (event) => {
             );
 
             //refrech
-            message.textContent = "Channel restored successfully!";
+            // message.textContent = "Channel restored successfully!";
+            showToast("Channel restored successfully!")
 
         } catch (error) {
             console.error(error);
-            message.textContent = "Failed to restore channel.";
+            showToast("Failed to restore channel", "error")
         }
 
         return;
