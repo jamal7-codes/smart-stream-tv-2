@@ -54,14 +54,14 @@ export function renderChannels(channels, view = "main") {
             //create restore button
             const restorButton = document.createElement("button");
             restorButton.type = "button";
-            restorButton.className = "bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg";
+            restorButton.className = "bg-green-500 hover:bg-green-600 w-20 h-10 px-4 py-2 rounded-lg";
             restorButton.textContent = "Restore"
             restorButton.dataset.action = "restore"
 
             // create delete button
             const deleteButton = document.createElement("button")
             deleteButton.type = "button";
-            deleteButton.className = "delete bg-red-500 w-16 h-8 rounded-lg hover:bg-red-100 flex-shrink-0 cursor-pointer";
+            deleteButton.className = "delete bg-red-500 w-20 h-10 rounded-lg hover:bg-red-100 flex-shrink-0 cursor-pointer";
             deleteButton.dataset.action = "delete"
             deleteButton.setAttribute("aria-label", "Delete channel")
             deleteButton.textContent = "Delete";
@@ -74,7 +74,7 @@ export function renderChannels(channels, view = "main") {
             const favButton = document.createElement("button");
 
             favButton.type = "button";
-            favButton.className = "favButton w-6 h-6 ml-auto flex-shrink-0 cursor-pointer";
+            favButton.className = "favButton w-6 h-6 ml-auto flex-shrink-0 cursor-pointer ";
             favButton.dataset.action = "favorite";
 
             // Display favorite status
@@ -83,7 +83,7 @@ export function renderChannels(channels, view = "main") {
             // create blacklist button 
             const blacklistButton = document.createElement("button")
             blacklistButton.type = "button";
-            blacklistButton.className = "blacklist bg-red-500 hover:bg-red-100 w-24 rounded-lg h-8 flex-shrink-0 cursor-pointer"
+            blacklistButton.className = "blacklist bg-red-500 hover:bg-red-100 w-24 rounded-lg  h-10 flex-shrink-0 cursor-pointer"
             blacklistButton.dataset.action = "blacklist"
             blacklistButton.textContent = "🚫 blacklist"
 
@@ -92,13 +92,6 @@ export function renderChannels(channels, view = "main") {
             listItem.appendChild(favButton);
 
         }
-
-
-        //create restore button
-
-
-
-
 
 
 
