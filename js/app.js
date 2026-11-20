@@ -1,4 +1,4 @@
-import { deleteChannel, getChannels, updateChannel } from "./api.js";
+import { deleteChannel, getChannels, updateChannel, createChannel } from "./api.js";
 import { renderChannels } from "./ui.js";
 import { search } from "./search.js";
 
@@ -199,5 +199,65 @@ listcontainer.addEventListener("click", async (event) => {
         }
 
         return;
+    }
+});
+ 
+ const dialog = document.getElementById("myModal");
+const openBtn = document.getElementById("openBtn");
+const closeBtn = document.getElementById("closeBtn");
+const addChannelForm = document.getElementById("add-channel-form");
+
+// Open modal
+openBtn.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+// Close modal
+closeBtn.addEventListener("click", () => {
+    dialog.close();
+});
+
+// Close when clicking outside
+dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+        dialog.close();
+    }
+});
+
+// Create channel
+addChannelForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const newChannel = {
+        name: document.getElementById("channel-name").value.trim(),
+        channelNumber: document.getElementById("channel-number").value.trim(),
+        category: document.getElementById("channel-category").value.trim(),
+        logo: document.getElementById("channel-logo").value.trim(),
+        isFavorite: false,
+        isBlacklisted: false
+    };
+
+    try {
+        // POST: Save channel in MockAPI
+        const createdChannel = await createChannel(newChannel);
+
+        // Update local array
+        channels.push(createdChannel);
+
+        // Update channel list
+        renderChannels(channels);
+
+        // Reset form
+        addChannelForm.reset();
+
+        // Close modal
+        dialog.close();
+
+        // Success notification
+        showToast("Channel created successfully!");
+
+    } catch (error) {
+        console.error(error);
+        showToast("Failed to create channel!", "error");
     }
 });
