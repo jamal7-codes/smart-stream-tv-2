@@ -1,78 +1,101 @@
 
 # Smart Stream TV
 
-A responsive Smart stream tv web interface built with **Vanilla JavaScript (ES6 modules)** and **Tailwind CSS**. Users can browse a channel catalogue, select a channel to update the preview, and filter channels instantly with a live search.
+A responsive Smart Stream TV web application built with **Vanilla JavaScript (ES6 modules)** and **Tailwind CSS**. Users can browse a channel catalogue, select channels to update the preview, search channels instantly, manage favorites, and add or delete channels through API integration.
 
- 
-🔗 **Live demo:** [https://smart-stream-tv-azure.vercel.app/] 
-📦 **Repository:** [https://github.com/jamal7-codes/smart-stream-tv]
-
- 
- 
+🔗 **Live demo:** [https://smart-stream-tv-azure.vercel.app/](https://smart-stream-tv-azure.vercel.app/)\
+📦 **Repository:** [https://github.com/jamal7-codes/smart-stream-tv](https://github.com/jamal7-codes/smart-stream-tv)
 
 ---
 
 ## Features
 
+### Channel Catalogue
+
 - **Responsive layout** (mobile-first): channel list on the left and preview on the right on desktop, stacked on mobile.
-- **Dynamic channel list** generated from a local JavaScript data file (no hand-written HTML rows).
-- **Channel details** shown in each row: channel number, logo, and name.
-- **Interactive selection**: clicking a channel highlights it and updates the preview image and title.
-- **Live search** by channel name or channel number, case-insensitive, with no page reload.
-- **Empty state message** when no channel matches the search.
+- **Dynamic channel list** generated from API data.
+- **Channel details** displayed in each row: channel number, logo, and name.
+- **Interactive selection:** clicking a channel highlights it and updates the preview image and title.
 
-## Tech stack
+### Search
 
-| Technology | Usage |
-| --- | --- |
-| HTML5 | Semantic page structure |
-| Tailwind CSS | Utility-first, mobile-first, responsive styling |
-| JavaScript (ES6+) | Logic, DOM manipulation, events |
-| ES6 Modules | `import` / `export` to separate responsibilities |
-| Git / GitHub | Version control with feature branches and Pull Requests |
+- **Live search** by channel name or channel number.
+- Case-insensitive filtering without page reload.
+- Empty state message when no channel matches the search.
 
-## Project structure
+### API Integration (V2)
+
+- **MockAPI integration** to manage channel data remotely.
+- **GET:** Fetch channels from the API.
+- **POST:** Add new channels.
+- **DELETE:** Remove channels from the catalogue.
+- API requests separated into a dedicated `api.js` module.
+
+### Favorites & LocalStorage (V2)
+
+- Add or remove channels from favorites.
+- Display favorite channels.
+- Save favorite channels in LocalStorage.
+- Restore favorites after refreshing the page.
+
+---
+
+## Tech Stack
+
+| Technology        | Usage                                                   |
+| ----------------- | ------------------------------------------------------- |
+| HTML5             | Semantic page structure                                 |
+| Tailwind CSS      | Utility-first, mobile-first, responsive styling         |
+| JavaScript (ES6+) | Application logic and DOM manipulation                  |
+| ES6 Modules       | Separate responsibilities using `import` / `export`     |
+| Fetch API         | Communicate with MockAPI                                |
+| MockAPI           | Remote channel data management                          |
+| LocalStorage      | Persist favorite channels                               |
+| Git / GitHub      | Version control with feature branches and Pull Requests |
+| Vercel            | Application deployment                                  |
+
+---
+
+## Project Structure
 
 ```
 smart-stream-tv/
 │
-├── index.html        # Main HTML document
+├── index.html
 │
 ├── data/
-│   └── data.js       # Channel catalogue (exports channelsData)
+│   └── data.js
 │
 ├── css/
-│   └── style.css     # Additional styles (if needed)
+│   └── style.css
 │
 ├── js/
-│   ├── app.js        # Application entry point
-│   ├── ui.js         # List rendering and channel selection
-│   └── search.js     # Live search and filtering
+│   ├── app.js
+│   ├── api.js
+│   ├── ui.js
+│   ├── search.js
+│   └── favorites.js
 │
 └── README.md
 ```
 
-## How it works
+---
 
-1. `data/data.js` exports the `channelsData` array. Each channel is an object:
+## How It Works
 
-   ```js
-   {
-     id: "1",
-     channelNumber: "1057",
-     name: "FR - DISCOVERY ID FHD",
-     category: "DOCUMENTAIRE",
-     logo: "...",
-     previewImage: "..."
-   }
-   ```
+1. `data/data.js` contains the initial channel data (if used as a fallback).
+2. `js/api.js` handles communication with MockAPI:
+   - `getChannels()` retrieves channels.
+   - `addChannel()` creates a new channel.
+   - `deleteChannel()` removes a channel.
+3. `js/app.js` initializes the application and coordinates the different modules.
+4. `js/ui.js` renders channel rows, handles channel selection, and updates the preview.
+5. `js/search.js` handles live search and filters channels.
+6. `js/favorites.js` manages favorite channels and stores them in LocalStorage.
 
-2. `js/app.js` imports `channelsData` and starts the application.
-3. `js/ui.js` loops through the array (`forEach` / `map`) to create the channel rows, and handles the `click` event to highlight the active channel and update the preview.
-4. `js/search.js` listens to the `input` event, filters the array with `filter()` and `includes()` (using `toLowerCase()` for case-insensitive matching), then renders the matching channels again.
- 
+---
 
-## Git workflow
+## Git Workflow
 
 ```
 main
@@ -80,30 +103,44 @@ main
         ├── feature/ui-layout
         ├── feature/channel-data
         ├── feature/channel-preview
-        └── feature/channel-search
+        ├── feature/channel-search
+        ├── feature/api-integration
+        ├── feature/channel-crud
+        └── feature/favorites
 ```
 
 - Each feature is developed on its own branch.
 - Features are merged into `develop` through Pull Requests.
 - After final validation, `develop` is merged into `main`.
-- Commit messages follow a simple convention (`feat:`, `fix:`, `docs:`).
+- Commit messages follow a simple convention: `feat:`, `fix:`, `docs:`.
 
-## What I learned
+---
 
-- Structuring a project with ES6 modules (`import` / `export`).
-- Working with arrays of objects and array methods: `forEach`, `map`, `filter`.
+## What I Learned
+
+- Structuring applications with ES6 modules.
+- Working with arrays of objects and array methods: `forEach`, `map`, `filter`, `find`, and `some`.
 - Creating and updating the DOM with `createElement`, `appendChild`, and `classList`.
-- Handling events: `click` and `input`.
-- Building a responsive, mobile-first interface with Tailwind CSS.
-- Working with branches, Pull Requests, and deployment.
+- Handling events: `click`, `input`, and form submission.
+- Working with Fetch API and HTTP methods (GET, POST, DELETE).
+- Managing asynchronous operations with Promises and `async/await`.
+- Persisting application data using LocalStorage.
+- Implementing CRUD operations with an external API.
+- Building responsive interfaces with Tailwind CSS.
+- Using Git branches, Pull Requests, and Vercel deployment.
 
-## Possible improvements
+---
+
+## Possible Improvements
 
 - Filter channels by category.
-- Favorite channels saved in `localStorage`.
+- Edit existing channels (PUT/PATCH).
 - Keyboard navigation in the channel list.
+- Add loading indicators and API error messages.
+- Improve favorite channel management.
 
-## Author
+ 
+ 
 
-**Jamal** — Web Developer student at YouCode
-GitHub: [@jamal7-codes] 
+GitHub: [@jamal7-codes](https://github.com/jamal7-codes)
+ 
