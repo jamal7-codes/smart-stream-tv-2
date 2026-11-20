@@ -1,7 +1,6 @@
-import { deleteChannel, getChannels } from "./api.js";
+import { deleteChannel, getChannels, updateChannel } from "./api.js";
 import { renderChannels } from "./ui.js";
 import { search } from "./search.js";
-import { updateChannel } from "./api.js";
 
 
 
@@ -78,7 +77,10 @@ listcontainer.addEventListener("click", async (event) => {
             );
 
             //render update list
-            renderChannels(channels);
+            renderChannels(
+                channels.filter(item => item.isBlacklisted),
+                "blacklist"
+            );;
 
             message.textContent = "Channel deleted successfully!";
 
@@ -108,6 +110,53 @@ listcontainer.addEventListener("click", async (event) => {
             console.error(error);
             message.textContent = "Failed to update favorite.";
         }
+        return;
+    }
+    if (action === "blacklist") {
+
+        try {
+            //update channels on the server
+            const updatedChannel = await updateChannel(channel.id, {
+                isBlacklisted: true
+            });
+
+            // update local channel
+            channel.isBlacklisted = updatedChannel.isBlacklisted;
+
+            // Hide blacklisted channels
+            renderChannels(channels.filter((item) => !item.isBlacklisted));
+
+            message.textContent = "Channel blacklisted successfully!";
+
+        } catch (error) {
+            console.error(error);
+            message.textContent = "Failed to blacklist channel.";
+        }
+
+        return;
+    }
+
+    if (action === "restore") {
+        try {
+            const updatedChannel = await updateChannel(channel.id, {
+                isBlacklisted: false
+            });
+
+            channel.isBlacklisted = updatedChannel.isBlacklisted;
+
+            renderChannels(
+                channels.filter(item => item.isBlacklisted),
+                "blacklist"
+            );
+
+            //refrech
+            message.textContent = "Channel restored successfully!";
+
+        } catch (error) {
+            console.error(error);
+            message.textContent = "Failed to restore channel.";
+        }
+
         return;
     }
 });
